@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        li {
+            float: left;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        li:hover {
+            background-color: yellowgreen;
+        }
+
+        img {
+            display: block;
+            width: 160px;
+            height: 160px;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 搜索 -->
+    <form action="/index">
+        <input type="text" class="search" name="search" value="{{search}}" placeholder="请输入搜索的名字">
+        <input type="submit" value="搜索">
+    </form>
+    </br>
+    <!-- 新增 -->
+    <form action="/add" method="POST" enctype="multipart/form-data">
+        <input type="text" class="search" name="name" placeholder="请输入名字">
+        </br>
+        </br>
+        <input type="file" name="icon">
+        </br>
+        </br>
+        <input type="submit" value="添加">
+        </br>
+    </form>
+    <ul>
+
+        {{each results}}
+        <li>
+            <img src="{{$value.icon}}" alt="">
+            <a>{{$value.name}}</a>
+            <a href="/update?id={{$value.Id}}">修改</a>
+            <a href="/delete?id={{$value.Id}}">删除</a>
+        </li>
+        {{/each}}
+
+
+    </ul>
+</body>
+
+</html>
+
+<script>
+    document.querySelector("form input[type=submit]").onclick = function (event) {
+        let search = document.querySelector(".search").value.trim();
+        // console.log(search.length);
+        document.querySelector(".search").value=search
+        if(search.length==0){
+            event.preventDefault()
+
+        }
+    }
+</script>
